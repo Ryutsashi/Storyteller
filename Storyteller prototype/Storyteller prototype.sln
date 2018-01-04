@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storyteller prototype", "Storyteller prototype.csproj", "{8D96A2B5-7E6F-46EF-A8DB-99D980F173CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storyteller prototype.Editor", "Storyteller prototype.Editor.csproj", "{11D1EF36-2D3B-9FFE-E859-8FC792A397EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D96A2B5-7E6F-46EF-A8DB-99D980F173CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D96A2B5-7E6F-46EF-A8DB-99D980F173CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D96A2B5-7E6F-46EF-A8DB-99D980F173CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D96A2B5-7E6F-46EF-A8DB-99D980F173CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D1EF36-2D3B-9FFE-E859-8FC792A397EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D1EF36-2D3B-9FFE-E859-8FC792A397EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D1EF36-2D3B-9FFE-E859-8FC792A397EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D1EF36-2D3B-9FFE-E859-8FC792A397EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
