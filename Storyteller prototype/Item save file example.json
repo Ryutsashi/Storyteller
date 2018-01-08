@@ -1,0 +1,53 @@
+{
+	"Item" : {
+		"Name" : "Potion necklace";
+		"Description" : "Necklace that contains a small dose of healing potion";
+		"Tags" : {
+			"ItemStat" : "Equipable";
+			"ItemStat" : "Wearable";
+			"ItemStat" : "Necklace";
+			"ItemStat" : "Trinket";
+			"ItemStat" : "Consumable";
+			"ItemStat" : "Potion";
+		}
+		"ItemStats" : {
+			"Stat" : {
+				"Name" : "Volume";
+				"Description" : "Amount of liquid left in liters.";
+				"Value" : "0.1";
+			}
+			"Stat" : {
+				"Name" : "Weight";
+				"Description" : "Item's weight in kilograms.";
+				"Value" : "0.2";
+			}
+		}
+		"StatModifiers": {
+			"Stat" : {
+				"Name": "Bloodhound Gang Standing";
+				"Description" : "They love your bigshot pants, yo!";
+				"Value" : "30";
+			}
+		}
+		"ActiveBonus" : {
+			"Stat" : {
+				"Name" : "Health";
+				"Description" : "Amount of health recovered by drinking.";
+				"Value" : "50";
+			}
+			"Stat" : {
+				"Name" : "Endurance";
+				"Description" : "Amount of endurance recovered by drinking.";
+				"Value" : "40";
+			}
+		}
+		"ItemRequirements" : {
+			"StatRequirementGreater" : {
+				"Stat" : {
+					"Name" : "Intelligence";
+					"Value" : "3";
+				}
+			}
+		}
+	}
+}

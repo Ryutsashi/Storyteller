@@ -7,7 +7,9 @@ public abstract class Requirement {
 	public abstract bool Test ( Character character );
 }
 
-[System.Serializable]
+// 1. Stat requirements
+
+/*[System.Serializable]
 public class StatRequirement : Requirement {
 	[SerializeField]
 	Stat requirement;
@@ -58,9 +60,161 @@ public class StatRequirement : Requirement {
 	public bool IsGreater ( Stat stat ) {
 		return stat > requirement;
 	}
+}*/
+
+[System.Serializable]
+public class StatRequirementEqual : Requirement {
+
+	[SerializeField]
+	Stat requirement;
+	public Stat Requirement { get { return requirement; } }
+
+
+	public StatRequirementEqual ( Stat requirement ) {
+		this.requirement = requirement;
+	}
+
+	public override bool Test ( Character character ) {
+
+		Stat stat = character.stats.FindStat ( requirement );
+
+		if ( stat == null ) {
+			Debug.Log ( "Passed stat is null." );
+			return false;
+		}
+
+		return stat == requirement;
+	}
 }
 
 [System.Serializable]
+public class StatRequirementNotEqual : Requirement {
+
+	[SerializeField]
+	Stat requirement;
+	public Stat Requirement { get { return requirement; } }
+
+
+	public StatRequirementNotEqual ( Stat requirement ) {
+		this.requirement = requirement;
+	}
+
+	public override bool Test ( Character character ) {
+
+		Stat stat = character.stats.FindStat ( requirement );
+
+		if ( stat == null ) {
+			Debug.Log ( "Passed stat is null." );
+			return false;
+		}
+
+		return stat != requirement;
+	}
+}
+
+[System.Serializable]
+public class StatRequirementGreater : Requirement {
+
+	[SerializeField]
+	Stat requirement;
+	public Stat Requirement { get { return requirement; } }
+
+
+	public StatRequirementGreater ( Stat requirement ) {
+		this.requirement = requirement;
+	}
+
+	public override bool Test ( Character character ) {
+
+		Stat stat = character.stats.FindStat ( requirement );
+
+		if ( stat == null ) {
+			Debug.Log ( "Passed stat is null." );
+			return false;
+		}
+
+		return stat > requirement;
+	}
+}
+
+[System.Serializable]
+public class StatRequirementLess : Requirement {
+
+	[SerializeField]
+	Stat requirement;
+	public Stat Requirement { get { return requirement; } }
+
+
+	public StatRequirementLess ( Stat requirement ) {
+		this.requirement = requirement;
+	}
+
+	public override bool Test ( Character character ) {
+
+		Stat stat = character.stats.FindStat ( requirement );
+
+		if ( stat == null ) {
+			Debug.Log ( "Passed stat is null." );
+			return false;
+		}
+
+		return stat < requirement;
+	}
+}
+
+[System.Serializable]
+public class StatRequirementGreaterEqual : Requirement {
+
+	[SerializeField]
+	Stat requirement;
+	public Stat Requirement { get { return requirement; } }
+
+
+	public StatRequirementGreaterEqual ( Stat requirement ) {
+		this.requirement = requirement;
+	}
+
+	public override bool Test ( Character character ) {
+
+		Stat stat = character.stats.FindStat ( requirement );
+
+		if ( stat == null ) {
+			Debug.Log ( "Passed stat is null." );
+			return false;
+		}
+
+		return stat >= requirement;
+	}
+}
+
+[System.Serializable]
+public class StatRequirementLessEqual : Requirement {
+
+	[SerializeField]
+	Stat requirement;
+	public Stat Requirement { get { return requirement; } }
+
+
+	public StatRequirementLessEqual ( Stat requirement ) {
+		this.requirement = requirement;
+	}
+
+	public override bool Test ( Character character ) {
+
+		Stat stat = character.stats.FindStat ( requirement );
+
+		if ( stat == null ) {
+			Debug.Log ( "Passed stat is null." );
+			return false;
+		}
+
+		return stat <= requirement;
+	}
+}
+
+// 2.1. Item quantity requirements
+
+/*[System.Serializable]
 public class ItemRequirement : Requirement {
 
 	// if the ItemRequirementCase passed to the constructor does not match other arguments default actions will be taken:
@@ -69,16 +223,16 @@ public class ItemRequirement : Requirement {
 
 	[SerializeField]
 	Item requirement;
-	[SerializeField]
-	ItemRequirementCase itemRequirementCase;
-	[SerializeField]
-	StatRequirement statRequirement;
-
 	public Item RequirementItem { get { return requirement; } }
 
+	[SerializeField]
+	ItemRequirementCase itemRequirementCase;
 	public ItemRequirementCase RequirementCase { get { return itemRequirementCase; } }
 
+	[SerializeField]
+	StatRequirement statRequirement;
 	public StatRequirement StatRequirement { get { return statRequirement; } }
+
 
 	public ItemRequirement ( Item item, ItemRequirementCase itemRequirementCase ) {
 		if ( itemRequirementCase == ItemRequirementCase.statCheck )
@@ -153,9 +307,338 @@ public class ItemRequirement : Requirement {
 		}
 		return false;
 	}
+}*/
+
+// TODO: Implement sharing item results across requirements
+
+[System.Serializable]
+public class ItemQuantityRequirementEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	int quantity;
+	public int Quantity { get { return quantity; } }
+
+	public ItemQuantityRequirementEqual ( Item item, int quantity ) {
+		this.item = item;
+		this.quantity = quantity;
+	}
+
+	public override bool Test ( Character character ) {
+
+		return character.equipment.FindEquipment ( item.Tags ).Count == quantity;
+	}
 }
 
-public enum Comparison {
+[System.Serializable]
+public class ItemQuantityRequirementNotEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	int quantity;
+	public int Quantity { get { return quantity; } }
+
+	public ItemQuantityRequirementNotEqual ( Item item, int quantity ) {
+		this.item = item;
+		this.quantity = quantity;
+	}
+
+	public override bool Test ( Character character ) {
+
+		return character.equipment.FindEquipment ( item.Tags ).Count != quantity;
+	}
+}
+
+[System.Serializable]
+public class ItemQuantityRequirementGreater : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	int quantity;
+	public int Quantity { get { return quantity; } }
+
+	public ItemQuantityRequirementGreater ( Item item, int quantity ) {
+		this.item = item;
+		this.quantity = quantity;
+	}
+
+	public override bool Test ( Character character ) {
+
+		return character.equipment.FindEquipment ( item.Tags ).Count > quantity;
+	}
+}
+
+[System.Serializable]
+public class ItemQuantityRequirementLess : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	int quantity;
+	public int Quantity { get { return quantity; } }
+
+	public ItemQuantityRequirementLess ( Item item, int quantity ) {
+		this.item = item;
+		this.quantity = quantity;
+	}
+
+	public override bool Test ( Character character ) {
+
+		return character.equipment.FindEquipment ( item.Tags ).Count < quantity;
+	}
+}
+
+[System.Serializable]
+public class ItemQuantityRequirementGreaterEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	int quantity;
+	public int Quantity { get { return quantity; } }
+
+	public ItemQuantityRequirementGreaterEqual ( Item item, int quantity ) {
+		this.item = item;
+		this.quantity = quantity;
+	}
+
+	public override bool Test ( Character character ) {
+
+		return character.equipment.FindEquipment ( item.Tags ).Count >= quantity;
+	}
+}
+
+[System.Serializable]
+public class ItemQuantityRequirementLessEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	int quantity;
+	public int Quantity { get { return quantity; } }
+
+	public ItemQuantityRequirementLessEqual ( Item item, int quantity ) {
+		this.item = item;
+		this.quantity = quantity;
+	}
+
+	public override bool Test ( Character character ) {
+
+		return character.equipment.FindEquipment ( item.Tags ).Count <= quantity;
+	}
+}
+
+// 2.2. Item stat requirements
+
+[System.Serializable]
+public class ItemStatRequirementEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	Stat stat;
+	public Stat Stat { get { return stat; } }
+
+	public ItemStatRequirementEqual ( Item item, Stat stat ) {
+		this.item = item;
+		this.stat = stat;
+	}
+
+
+	// TODO: this currently takes only ItemStats into account... fuck bro you dun fckd up
+	public override bool Test ( Character character ) {
+
+		List<Item> items = character.equipment.FindEquipment ( item.Tags );
+
+		foreach ( Item i in items ) {
+			foreach ( Stat s in i.ItemStats ) {
+				if ( s == stat && s.Value == stat.Value )
+					return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+[System.Serializable]
+public class ItemStatRequirementNotEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	Stat stat;
+	public Stat Stat { get { return stat; } }
+
+	public ItemStatRequirementNotEqual ( Item item, Stat stat ) {
+		this.item = item;
+		this.stat = stat;
+	}
+
+
+	public override bool Test ( Character character ) {
+
+		List<Item> items = character.equipment.FindEquipment ( item.Tags );
+
+		foreach ( Item i in items ) {
+			foreach ( Stat s in i.ItemStats ) {
+				if ( s == stat && s.Value != stat.Value )
+					return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+[System.Serializable]
+public class ItemStatRequirementGreater : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	Stat stat;
+	public Stat Stat { get { return stat; } }
+
+	public ItemStatRequirementGreater ( Item item, Stat stat ) {
+		this.item = item;
+		this.stat = stat;
+	}
+
+
+	public override bool Test ( Character character ) {
+
+		List<Item> items = character.equipment.FindEquipment ( item.Tags );
+
+		foreach ( Item i in items ) {
+			foreach ( Stat s in i.ItemStats ) {
+				if ( s == stat && s > stat )
+					return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+[System.Serializable]
+public class ItemStatRequirementLess : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	Stat stat;
+	public Stat Stat { get { return stat; } }
+
+	public ItemStatRequirementLess ( Item item, Stat stat ) {
+		this.item = item;
+		this.stat = stat;
+	}
+
+
+	public override bool Test ( Character character ) {
+
+		List<Item> items = character.equipment.FindEquipment ( item.Tags );
+
+		foreach ( Item i in items ) {
+			foreach ( Stat s in i.ItemStats ) {
+				if ( s == stat && s < stat )
+					return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+[System.Serializable]
+public class ItemStatRequirementGreaterEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	Stat stat;
+	public Stat Stat { get { return stat; } }
+
+	public ItemStatRequirementGreaterEqual ( Item item, Stat stat ) {
+		this.item = item;
+		this.stat = stat;
+	}
+
+
+	public override bool Test ( Character character ) {
+
+		List<Item> items = character.equipment.FindEquipment ( item.Tags );
+
+		foreach ( Item i in items ) {
+			foreach ( Stat s in i.ItemStats ) {
+				if ( s == stat && s >= stat )
+					return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+[System.Serializable]
+public class ItemStatRequirementLessEqual : Requirement {
+
+	[SerializeField]
+	Item item;
+	public Item Item { get { return item; } }
+
+	[SerializeField]
+	Stat stat;
+	public Stat Stat { get { return stat; } }
+
+	public ItemStatRequirementLessEqual ( Item item, Stat stat ) {
+		this.item = item;
+		this.stat = stat;
+	}
+
+
+	public override bool Test ( Character character ) {
+
+		List<Item> items = character.equipment.FindEquipment ( item.Tags );
+
+		foreach ( Item i in items ) {
+			foreach ( Stat s in i.ItemStats ) {
+				if ( s == stat && s <= stat )
+					return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+/*public enum Comparison {
 	equals,
 	notEquals,
 	less,
@@ -170,4 +653,4 @@ public enum ItemRequirementCase {
 	hasExactItem,
 	notHasExactItem,
 	statCheck
-}
+}*/
